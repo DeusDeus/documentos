@@ -4,10 +4,12 @@ class PersonaModel (db.Model):
     id=db.Column(db.Integer, primary_key=True)
     nombre=db.Column(db.String(45))
     apellido=db.Column(db.String(60))
-    dni=db.column(db.Integer)
+    dni=db.Column(db.Integer)
     codtrabajador=db.Column(db.String(20))
     correo=db.Column(db.String(45))
     telefono=db.Column(db.Integer)
+    documento=db.relationship("DocumentoModel", uselist=False)
+
    
 
     def __init__(self,nombre, apellido, dni, codtrabajador, correo, telefono, documento):
@@ -17,14 +19,15 @@ class PersonaModel (db.Model):
         self.correo=correo
         self.telefono=telefono
         self.documento=documento
+        self.dni=dni
     def traer_persona(self):
         return{
-            'nombre'=self.nombre,
-            'apellidos'=self.apellido,
-            'dni'=self.dni,
-            'codigo_trabajador'=self.codtrabajador,
-            'correo'=self.correo,
-            'telefono'=self.telefono
+            'nombre':self.nombre,
+            'apellidos':self.apellido,
+            'dni':self.dni,
+            'codigo_trabajador':self.codtrabajador,
+            'correo':self.correo,
+            'telefono':self.telefono
         }
     def guardar_db(self):
         db.session.add(self)
